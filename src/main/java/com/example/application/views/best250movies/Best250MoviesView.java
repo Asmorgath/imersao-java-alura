@@ -1,6 +1,7 @@
 package com.example.application.views.best250movies;
 
 import com.example.application.data.entity.Sample250Movies;
+import com.example.application.data.generator.DataGenerator;
 import com.example.application.data.service.Sample250MoviesService;
 import com.example.application.views.MainLayout;
 import com.vaadin.flow.component.Component;
@@ -65,9 +66,12 @@ public class Best250MoviesView extends Div implements BeforeEnterObserver {
 
     private final Sample250MoviesService sample250MoviesService;
 
+    DataGenerator dataGenerator = new DataGenerator();
+
     @Autowired
     public Best250MoviesView(Sample250MoviesService sample250MoviesService) {
         this.sample250MoviesService = sample250MoviesService;
+        dataGenerator.generateData();
         addClassNames("best250-movies-view");
 
         // Create UI
@@ -84,11 +88,11 @@ public class Best250MoviesView extends Div implements BeforeEnterObserver {
                 .withProperty("image", Sample250Movies::getImage);
         grid.addColumn(imageRenderer).setHeader("Image").setWidth("68px").setFlexGrow(0);
 
-        grid.addColumn("rank").setAutoWidth(true);
-        grid.addColumn("name").setAutoWidth(true);
-        grid.addColumn("imDbRating").setAutoWidth(true);
-        grid.addColumn("yearMovie").setAutoWidth(true);
-        grid.addColumn("crew").setAutoWidth(true);
+        grid.addColumn("rank").setAutoWidth(true).setHeader("Posição");
+        grid.addColumn("name").setAutoWidth(true).setHeader("Nome do Filme");
+        grid.addColumn("imDbRating").setAutoWidth(true).setHeader("Nota IMDB");
+        grid.addColumn("yearMovie").setAutoWidth(true).setHeader("Ano de Lançamento");
+        grid.addColumn("crew").setAutoWidth(true).setHeader("Elenco");
         grid.setItems(query -> sample250MoviesService.list(
                 PageRequest.of(query.getPage(), query.getPageSize(), VaadinSpringDataHelpers.toSpringDataSort(query)))
                 .stream());
@@ -126,7 +130,7 @@ public class Best250MoviesView extends Div implements BeforeEnterObserver {
         save.addClickListener(e -> {
             try {
                 if (this.sample250Movies == null) {
-                    this.sample250Movies = new Sample250Movies();
+                    //this.sample250Movies = new Sample250Movies();
                 }
                 binder.writeBean(this.sample250Movies);
                 this.sample250Movies.setImage(imagePreview.getSrc());

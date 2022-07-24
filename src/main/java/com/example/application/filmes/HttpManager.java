@@ -10,21 +10,21 @@ import java.util.Map;
 
 public class HttpManager {
 
-    String url = "https://alura-imdb-api.herokuapp.com/movies";
-    URI uri = URI.create(url);
-    HttpClient client = java.net.http.HttpClient.newHttpClient();
-    HttpRequest request = HttpRequest.newBuilder(uri).GET().build();
-    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-    String body = response.body();
+    public String HttpManager(String url) {
+        //String url = "https://alura-imdb-api.herokuapp.com/movies";
+        URI uri = URI.create(url);
+        HttpClient client = java.net.http.HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder(uri).GET().build();
+        HttpResponse<String> response = null;
+        try {
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
-    //extrair so os dados que interessam(titulo,poster,classificaçao)
-    JsonParser parser = new JsonParser();
-    List<Map<String, String>> listaDeFilmes = parser.parse(body);
-
-    public HttpManager() throws IOException, InterruptedException {
+        String body = response.body();
+        return body;
     }
-    //exibir e manipular os dados
-
-
-    for
 }

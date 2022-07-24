@@ -1,6 +1,7 @@
 package com.example.application.views;
 
 
+import com.example.application.filmes.HttpManager;
 import com.example.application.views.best250movies.Best250MoviesView;
 import com.example.application.views.best250series.Best250SeriesView;
 import com.example.application.views.popularmovies.PopularMoviesView;
@@ -28,10 +29,12 @@ public class MainLayout extends AppLayout {
     public static class MenuItemInfo extends ListItem {
 
         private final Class<? extends Component> view;
+        private HttpManager httpManager = new HttpManager();
 
         public MenuItemInfo(String menuTitle, String iconClass, Class<? extends Component> view) {
             this.view = view;
             RouterLink link = new RouterLink();
+            //System.out.println("TESTE "+httpManager.HttpManager("https://alura-imdb-api.herokuapp.com/movies"));
             // Use Lumo classnames for various styling
             link.addClassNames("flex", "h-m", "items-center", "px-s", "relative", "text-secondary");
             link.setRoute(view);

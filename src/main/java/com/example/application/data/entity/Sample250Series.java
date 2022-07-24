@@ -8,7 +8,7 @@ public class Sample250Series extends AbstractEntity {
 
     @Lob
     private String image;
-    private Integer ranking;
+    private Integer rank;
     private String name;
     private Integer imDbRating;
     private Integer yearMovie;
@@ -20,11 +20,11 @@ public class Sample250Series extends AbstractEntity {
     public void setImage(String image) {
         this.image = image;
     }
-    public Integer getRanking() {
-        return ranking;
+    public Integer getRank() {
+        return rank;
     }
-    public void setRanking(Integer ranking) {
-        this.ranking = ranking;
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
     public String getName() {
         return name;

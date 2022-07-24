@@ -48,7 +48,7 @@ public class PopularSeriesView extends Div implements BeforeEnterObserver {
 
     private Upload image;
     private Image imagePreview;
-    private TextField ranking;
+    private TextField rank;
     private TextField name;
     private TextField imDbRating;
     private TextField yearMovie;
@@ -82,11 +82,11 @@ public class PopularSeriesView extends Div implements BeforeEnterObserver {
                 .withProperty("image", SamplePopularSeries::getImage);
         grid.addColumn(imageRenderer).setHeader("Image").setWidth("68px").setFlexGrow(0);
 
-        grid.addColumn("ranking").setAutoWidth(true);
-        grid.addColumn("name").setAutoWidth(true);
-        grid.addColumn("imDbRating").setAutoWidth(true);
-        grid.addColumn("yearMovie").setAutoWidth(true);
-        grid.addColumn("crew").setAutoWidth(true);
+        grid.addColumn("rank").setAutoWidth(true).setHeader("Posição");
+        grid.addColumn("name").setAutoWidth(true).setHeader("Nome do Filme");
+        grid.addColumn("imDbRating").setAutoWidth(true).setHeader("Nota IMDB");
+        grid.addColumn("yearMovie").setAutoWidth(true).setHeader("Ano de Lançamento");
+        grid.addColumn("crew").setAutoWidth(true).setHeader("Elenco");
         grid.setItems(query -> samplePopularSeriesService.list(
                 PageRequest.of(query.getPage(), query.getPageSize(), VaadinSpringDataHelpers.toSpringDataSort(query)))
                 .stream());
@@ -107,8 +107,8 @@ public class PopularSeriesView extends Div implements BeforeEnterObserver {
         binder = new BeanValidationBinder<>(SamplePopularSeries.class);
 
         // Bind fields. This is where you'd define e.g. validation rules
-        binder.forField(ranking).withConverter(new StringToIntegerConverter("Only numbers are allowed"))
-                .bind("ranking");
+        binder.forField(rank).withConverter(new StringToIntegerConverter("Only numbers are allowed"))
+                .bind("rank");
         binder.forField(imDbRating).withConverter(new StringToIntegerConverter("Only numbers are allowed"))
                 .bind("imDbRating");
         binder.forField(yearMovie).withConverter(new StringToIntegerConverter("Only numbers are allowed"))
@@ -178,12 +178,12 @@ public class PopularSeriesView extends Div implements BeforeEnterObserver {
         image = new Upload();
         image.getStyle().set("box-sizing", "border-box");
         image.getElement().appendChild(imagePreview.getElement());
-        ranking = new TextField("Ranking");
+        rank = new TextField("rank");
         name = new TextField("Name");
         imDbRating = new TextField("Im Db Rating");
         yearMovie = new TextField("Year Movie");
         crew = new TextField("Crew");
-        Component[] fields = new Component[]{imageLabel, image, ranking, name, imDbRating, yearMovie, crew};
+        Component[] fields = new Component[]{imageLabel, image, rank, name, imDbRating, yearMovie, crew};
 
         formLayout.add(fields);
         editorDiv.add(formLayout);

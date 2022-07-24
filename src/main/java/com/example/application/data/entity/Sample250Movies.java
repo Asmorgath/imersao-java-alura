@@ -10,7 +10,7 @@ public class Sample250Movies extends AbstractEntity {
     private String image;
     private Integer rank;
     private String name;
-    private Integer imDbRating;
+    private Double imDbRating;
     private Integer yearMovie;
     private String crew;
 
@@ -32,10 +32,10 @@ public class Sample250Movies extends AbstractEntity {
     public void setName(String name) {
         this.name = name;
     }
-    public Integer getImDbRating() {
+    public Double getImDbRating() {
         return imDbRating;
     }
-    public void setImDbRating(Integer imDbRating) {
+    public void setImDbRating(Double imDbRating) {
         this.imDbRating = imDbRating;
     }
     public Integer getYearMovie() {
@@ -51,4 +51,12 @@ public class Sample250Movies extends AbstractEntity {
         this.crew = crew;
     }
 
+    public Sample250Movies(String image, Integer rank, String name, Double imDbRating, Integer yearMovie, String crew) {
+        this.image = image;
+        this.rank = rank;
+        this.name = name;
+        this.imDbRating = imDbRating;
+        this.yearMovie = yearMovie;
+        this.crew = crew;
+    }
 }
