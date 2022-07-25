@@ -71,7 +71,7 @@ public class Best250MoviesView extends Div implements BeforeEnterObserver {
     @Autowired
     public Best250MoviesView(Sample250MoviesService sample250MoviesService) {
         this.sample250MoviesService = sample250MoviesService;
-        dataGenerator.generateData();
+        
         addClassNames("best250-movies-view");
 
         // Create UI
@@ -88,14 +88,12 @@ public class Best250MoviesView extends Div implements BeforeEnterObserver {
                 .withProperty("image", Sample250Movies::getImage);
         grid.addColumn(imageRenderer).setHeader("Image").setWidth("68px").setFlexGrow(0);
 
-        grid.addColumn("rank").setAutoWidth(true).setHeader("Posição");
-        grid.addColumn("name").setAutoWidth(true).setHeader("Nome do Filme");
-        grid.addColumn("imDbRating").setAutoWidth(true).setHeader("Nota IMDB");
-        grid.addColumn("yearMovie").setAutoWidth(true).setHeader("Ano de Lançamento");
-        grid.addColumn("crew").setAutoWidth(true).setHeader("Elenco");
-        grid.setItems(query -> sample250MoviesService.list(
-                PageRequest.of(query.getPage(), query.getPageSize(), VaadinSpringDataHelpers.toSpringDataSort(query)))
-                .stream());
+        grid.addColumn(Sample250Movies::getRank).setAutoWidth(true).setHeader("Posição");
+        grid.addColumn(Sample250Movies::getName).setAutoWidth(true).setHeader("Nome do Filme");
+        grid.addColumn(Sample250Movies::getImDbRating).setAutoWidth(true).setHeader("Nota IMDB");
+        grid.addColumn(Sample250Movies::getYearMovie).setAutoWidth(true).setHeader("Ano de Lançamento");
+        grid.addColumn(Sample250Movies::getCrew).setAutoWidth(true).setHeader("Elenco");
+        grid.setItems(sample250MoviesService.listByURL());
         grid.addThemeVariants(GridVariant.LUMO_NO_BORDER);
 
         // when a row is selected or deselected, populate form

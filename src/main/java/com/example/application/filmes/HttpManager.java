@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class HttpManager {
 
-    public String HttpManager(String url) {
+    public String getData(String url) {
         //String url = "https://alura-imdb-api.herokuapp.com/movies";
         URI uri = URI.create(url);
         HttpClient client = java.net.http.HttpClient.newHttpClient();

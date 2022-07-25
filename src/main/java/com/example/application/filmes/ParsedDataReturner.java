@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Map;
 
 public class ParsedDataReturner {
-    public List<Sample250Movies> ExtractData(HttpManager httpManager, String url) {
+    public List<Sample250Movies> extractMovies(String data) {
 
         var parser = new JsonParser();
-        List<Map<String, String>> dataListItems = parser.parse(httpManager.HttpManager(url));
+        List<Map<String, String>> dataListItems = parser.parse(data);
         List<Sample250Movies> detailedBodyContent = new ArrayList<>();
 
         for (Map<String, String> dataListItem : dataListItems) {

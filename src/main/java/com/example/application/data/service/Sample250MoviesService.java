@@ -38,4 +38,12 @@ public class Sample250MoviesService {
         return (int) repository.count();
     }
 
+    public List<Sample250Movies> listByURL(){
+        HttpManager httpManager = new HttpManager("https://alura-imdb-api.herokuapp.com/movies");
+        String data = httpManager.getData();
+
+        return new ParsedDataReturner().extractMovies(data);
+    }
+
+
 }
